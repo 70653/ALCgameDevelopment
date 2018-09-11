@@ -12,7 +12,7 @@ public float jumpHeight;
 public Transform groundCheck;
 public float groundCheckRadius;
 public LayerMask whatIsGround;
-private bool grounded;
+private bool grounded, doubleJump;
 
 	// Use this for initialization
 	void Start () {
@@ -27,13 +27,24 @@ private bool grounded;
 	// Update is called once per frame
 	void Update () {
 		//player jump
-		if (Input.GetKeyDown (KeyCode.Space) && grounded)
+		if (Input.GetKeyDown (KeyCode.UpArrow) && grounded)
 		{
 			Jump();
+			doubleJump = true;
+		}
+		//move right
+		if (Input.GetKeyDown (KeyCode.RightArrow))
+		{
+			GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+		}
+		//move left
+		if (Input.GetKeyDown (KeyCode.LeftArrow))
+		{
+			GetComponent<Rigidbody2D>().velocity = new Vector2((moveSpeed * -1), GetComponent<Rigidbody2D>().velocity.y);
 		}
 	}
 	public void Jump()
 	{
-	GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
+		GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
 	}
 }
