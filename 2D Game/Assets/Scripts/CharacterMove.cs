@@ -12,10 +12,11 @@ public float jumpHeight;
 public Transform groundCheck;
 public float groundCheckRadius;
 public LayerMask whatIsGround;
-private bool grounded, doubleJump;
+private bool grounded, doubleJump = true;// true = able to double jump
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		
 	}
 	
@@ -32,6 +33,12 @@ private bool grounded, doubleJump;
 			Jump();
 			doubleJump = true;
 		}
+		if (Input.GetKeyDown (KeyCode.UpArrow) && doubleJump == true && grounded == false)
+		{
+			jumpHeight = 5;
+			Jump();
+			doubleJump = false;
+		}
 		//move right
 		if (Input.GetKeyDown (KeyCode.RightArrow))
 		{
@@ -46,5 +53,6 @@ private bool grounded, doubleJump;
 	public void Jump()
 	{
 		GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
+		jumpHeight = 6;
 	}
 }
