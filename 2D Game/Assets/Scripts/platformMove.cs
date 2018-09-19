@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class platformMove : MonoBehaviour {
 	public int counter = 0;
+	public float blockMove, realMove = .1f;
 
 	// Use this for initialization
 	void Start () {
@@ -13,32 +14,23 @@ public class platformMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		counter++;
-		if (counter < 60)
+		// moving the block to the right
+		if (counter < 100)
 		{
-			moveRight();
+			blockMove = realMove;
 		}
-		else if (counter > 60)
+		// moving the block to the left
+		else if (counter < 200)
 		{
-			if (counter >= 120)
-			{
-				counter = 0;
-			}
-			else
-			{
-				moveLeft();
-			}
+			blockMove = realMove * -1;
+		}
+		else if (counter > 200)
+		{
+			counter = 0;
 		}
 
+		//GetComponent<Rigidbody2D>().velocity = new Vector2(blockVelocity, 0);
+		transform.position = new Vector3(transform.position.x + blockMove, 0, 0);
 		
-		
-	}
-	public void moveLeft()
-	{
-		GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 0);
-	}
-
-	public void moveRight()
-	{
-		GetComponent<Rigidbody2D>().velocity = new Vector2(1, 0);
 	}
 }

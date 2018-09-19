@@ -5,14 +5,15 @@ using UnityEngine;
 public class CharacterMove : MonoBehaviour {
 
 // player movement variables
-public int moveSpeed;
-public float jumpHeight;
+public float moveSpeed;
+public float jumpHeight = 6;
 
 //player grounded variables
 public Transform groundCheck;
 public float groundCheckRadius;
 public LayerMask whatIsGround;
 private bool grounded, doubleJump = true;// true = able to double jump
+private float moveVelocity;
 
 	// Use this for initialization
 	void Start () 
@@ -28,31 +29,37 @@ private bool grounded, doubleJump = true;// true = able to double jump
 	// Update is called once per frame
 	void Update () {
 		//player jump
-		if (Input.GetKeyDown (KeyCode.UpArrow) && grounded)
+		if (Input.GetKeyDown (KeyCode.UpArrow) && grounded == true)
 		{
 			Jump();
+		}
+		if (grounded == true)
+		{
 			doubleJump = true;
 		}
+		// double jump
 		if (Input.GetKeyDown (KeyCode.UpArrow) && doubleJump == true && grounded == false)
 		{
-			jumpHeight = 5;
 			Jump();
 			doubleJump = false;
 		}
+		// non slide player
+		moveVelocity = 0f;
 		//move right
-		if (Input.GetKeyDown (KeyCode.RightArrow))
+		if (Input.GetKey (KeyCode.RightArrow))
 		{
-			GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+			moveVelocity = moveSpeed;
 		}
 		//move left
-		if (Input.GetKeyDown (KeyCode.LeftArrow))
+		if (Input.GetKey (KeyCode.LeftArrow))
 		{
-			GetComponent<Rigidbody2D>().velocity = new Vector2((moveSpeed * -1), GetComponent<Rigidbody2D>().velocity.y);
+			moveVelocity = moveSpeed * -1;
 		}
+
+		GetComponent<Rigidbody2D>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody2D>().velocity.y);
 	}
 	public void Jump()
 	{
 		GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
-		jumpHeight = 6;
 	}
 }
