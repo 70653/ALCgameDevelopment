@@ -55,7 +55,7 @@ private float moveVelocity;
 		{
 			moveVelocity = moveSpeed * -1;
 		}
-
+		// moves the character every frame while moving
 		GetComponent<Rigidbody2D>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody2D>().velocity.y);
 	}
 	public void Jump()
