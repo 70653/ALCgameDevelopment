@@ -18,7 +18,6 @@ private float moveVelocity;
 	// Use this for initialization
 	void Start () 
 	{
-		
 	}
 	
 	void FixedUpdate()
@@ -62,4 +61,5 @@ private float moveVelocity;
 	{
 		GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
 	}
+
 }

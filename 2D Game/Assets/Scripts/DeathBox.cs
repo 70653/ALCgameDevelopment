@@ -10,7 +10,7 @@ public class DeathBox : MonoBehaviour {
 		if (other.name == "player")
 		{
 			Debug.Log("Player Enters Death Zone");
-			Destroy(other);
+			//Destroy(other);
 		}
 	}
 	// Use this for initialization

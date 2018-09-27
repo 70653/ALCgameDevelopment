@@ -8,7 +8,7 @@ public class coinPickup : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.GetComponent<Rigidbody2D>() == null)
+		if ( other.GetComponent<Rigidbody2D>() == null)
 		{
 			return;
 		}
