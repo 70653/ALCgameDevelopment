@@ -15,9 +15,21 @@ public LayerMask whatIsGround;
 private bool grounded, doubleJump = true;// true = able to double jump
 private float moveVelocity;
 
+public Vector3 spawn;
+
+	void OnTriggerEnter2D (Collider2D other)
+	{
+		if (other.name == "DeathBox")
+		{
+			Reset();
+		}
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
+		spawn = transform.position;
+		spawn.y += 1;
 	}
 	
 	void FixedUpdate()
@@ -60,6 +72,13 @@ private float moveVelocity;
 	public void Jump()
 	{
 		GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
+	}
+
+	public void Reset()
+	{
+		transform.position = spawn;
+		scoreManager.score = 0;
+		enemy.respawn = 1;
 	}
 
 }

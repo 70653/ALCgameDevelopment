@@ -17,10 +17,12 @@ public class enemy : MonoBehaviour {
 	//edge check
 	private bool notAtEdge;
 	public Transform edgeCheck;
-
+	public Vector3 enemySpawn;
+	public static int respawn = 0;
 	// Use this for initialization
-	void Start () {
-		
+	void Start () 
+	{
+		enemySpawn = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -42,6 +44,17 @@ public class enemy : MonoBehaviour {
 			transform.localScale = new Vector3(.2f, 0.2f, 1f);
 			GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
 		}
-		
+
+		if (respawn == 1)
+		{
+			Reset();
+			respawn = 0;
+		}
 	}
+
+	public void Reset()
+	{
+		transform.position = enemySpawn;
+	}
+
 }
