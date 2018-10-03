@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterMove : MonoBehaviour {
 
@@ -12,14 +13,17 @@ public float jumpHeight = 6;
 public Transform groundCheck;
 public float groundCheckRadius;
 public LayerMask whatIsGround;
+
+public static int reachCheckpoint;
+
 private bool grounded, doubleJump = true;// true = able to double jump
 private float moveVelocity;
 
-public Vector3 spawn;
+public static Vector3 spawn;
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.name == "DeathBox")
+		if (other.name == "DeathBox" || other.name == "enemyHurt")
 		{
 			Reset();
 		}
@@ -29,7 +33,6 @@ public Vector3 spawn;
 	void Start () 
 	{
 		spawn = transform.position;
-		spawn.y += 1;
 	}
 	
 	void FixedUpdate()
@@ -76,9 +79,16 @@ public Vector3 spawn;
 
 	public void Reset()
 	{
-		transform.position = spawn;
-		scoreManager.score = 0;
-		enemy.respawn = 1;
+		if (scoreManager.score <= 0 && reachCheckpoint == 0)
+		{
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		}
+		else
+		{
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+			transform.position = spawn;
+			enemy.respawn = 1;
+		}
 	}
 
 }

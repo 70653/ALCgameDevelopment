@@ -47,14 +47,15 @@ public class enemy : MonoBehaviour {
 
 		if (respawn == 1)
 		{
-			Reset();
 			respawn = 0;
+			transform.position = enemySpawn;
+			moveRight = true;
 		}
 	}
 
 	public void Reset()
 	{
-		transform.position = enemySpawn;
+
 	}
 
 }

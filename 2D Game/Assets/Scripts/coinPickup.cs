@@ -12,8 +12,11 @@ public class coinPickup : MonoBehaviour {
 		{
 			return;
 		}
+		if (other.name == "player")
+		{
 		scoreManager.addPoints(pointsToAdd);
 		Destroy(gameObject);
+		}
 	}
 
 	// Use this for initialization
