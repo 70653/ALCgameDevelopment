@@ -25,6 +25,11 @@ public class enemy : MonoBehaviour {
 		enemySpawn = transform.position;
 	}
 	
+	void OnTriggerEnter2D (Collider2D other)
+	{
+
+	}
+
 	// Update is called once per frame
 	void Update () {
 		notAtEdge = Physics2D.OverlapCircle(edgeCheck.position, wallCheckRadius, whatIsWall);
@@ -53,7 +58,7 @@ public class enemy : MonoBehaviour {
 		}
 	}
 
-	public void Reset()
+	public static void Reset()
 	{
 
 	}

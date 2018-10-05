@@ -9,7 +9,7 @@ public class levelManager : MonoBehaviour {
 	public GameObject deathParticle;
 	public GameObject respawnParticle;
 	public float respawnDelay;
-	public int pointPenaltyOnDeath;
+	public int pointPenaltyOnDeath = 50;
 	
 	private float gravityStore;
 
@@ -18,7 +18,7 @@ public class levelManager : MonoBehaviour {
 	{
 		pc = FindObjectOfType<Rigidbody2D>();
 	}
-	/*
+	/* 
 	public void respawnPlayer()
 	{
 		StartCoroutine ("respawnPlayerCo");
@@ -36,7 +36,7 @@ public class levelManager : MonoBehaviour {
 		pc.GetComponent<Rigidbody2D>().gravityScale = 0f;
 		pc.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		//point penalty
-		scoreManager.addpoints(-pointPenaltyOnDeath);
+		scoreManager.addPoints(-pointPenaltyOnDeath);
 		//debug message
 		Debug.Log("pc respawn");
 		//respawn delay

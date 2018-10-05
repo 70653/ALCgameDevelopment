@@ -5,9 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMove : MonoBehaviour {
 
+public static CharacterMove instance;
+
 // player movement variables
 public float moveSpeed;
 public float jumpHeight = 6;
+
+public GameObject playerCharacter;
 
 //player grounded variables
 public Transform groundCheck;
@@ -47,28 +51,41 @@ public static Vector3 spawn;
 		{
 			Jump();
 		}
+
+		// 
 		if (grounded == true)
 		{
 			doubleJump = true;
 		}
+
 		// double jump
 		if (Input.GetKeyDown (KeyCode.UpArrow) && doubleJump == true && grounded == false)
 		{
 			Jump();
 			doubleJump = false;
 		}
+
 		// non slide player
 		moveVelocity = 0f;
+
 		//move right
-		if (Input.GetKey (KeyCode.RightArrow))
+		if (Input.GetKey(KeyCode.RightArrow))
 		{
 			moveVelocity = moveSpeed;
 		}
+
 		//move left
-		if (Input.GetKey (KeyCode.LeftArrow))
+		if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			moveVelocity = moveSpeed * -1;
 		}
+
+		// shoots a bullet
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+
+		}
+
 		// moves the character every frame while moving
 		GetComponent<Rigidbody2D>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody2D>().velocity.y);
 	}
@@ -89,6 +106,7 @@ public static Vector3 spawn;
 			transform.position = spawn;
 			enemy.respawn = 1;
 		}
+		scoreManager.addPoints(-50);
 	}
 
 }
