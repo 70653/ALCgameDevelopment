@@ -10,6 +10,10 @@ public static CharacterMove instance;
 // player movement variables
 public float moveSpeed;
 public float jumpHeight = 6;
+public float respawnDelay;
+
+// 0 = left, 1 = right
+public static int direction;
 
 public GameObject playerCharacter;
 
@@ -21,9 +25,10 @@ public LayerMask whatIsGround;
 public static int reachCheckpoint;
 
 private bool grounded, doubleJump = true;// true = able to double jump
-private float moveVelocity;
+public static float moveVelocity;
 
 public static Vector3 spawn;
+public static Vector3 currentPosition;
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
@@ -72,22 +77,20 @@ public static Vector3 spawn;
 		if (Input.GetKey(KeyCode.RightArrow))
 		{
 			moveVelocity = moveSpeed;
+			direction = 1;
 		}
 
 		//move left
 		if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			moveVelocity = moveSpeed * -1;
-		}
-
-		// shoots a bullet
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-
+			direction = 0;
 		}
 
 		// moves the character every frame while moving
 		GetComponent<Rigidbody2D>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody2D>().velocity.y);
+
+		currentPosition = transform.position;
 	}
 	public void Jump()
 	{
