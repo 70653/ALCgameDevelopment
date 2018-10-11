@@ -23,6 +23,7 @@ public float groundCheckRadius;
 public LayerMask whatIsGround;
 
 public static int reachCheckpoint;
+public static int playerDie = 0; // 0 = alive, 1 = dead
 
 private bool grounded, doubleJump = true;// true = able to double jump
 public static float moveVelocity;
@@ -32,7 +33,7 @@ public static Vector3 currentPosition;
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.name == "DeathBox" || other.name == "enemyHurt")
+		if (other.name == "DeathBox")
 		{
 			Reset();
 		}
@@ -87,11 +88,17 @@ public static Vector3 currentPosition;
 			direction = 0;
 		}
 
+		if (playerDie == 1)
+		{
+			playerDie = 0;
+			Reset();
+		}
+
 		// moves the character every frame while moving
 		GetComponent<Rigidbody2D>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody2D>().velocity.y);
 
 		currentPosition = transform.position;
-	}
+	}// end update
 	public void Jump()
 	{
 		GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);

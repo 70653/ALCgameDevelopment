@@ -16,7 +16,6 @@ public class checkpoint : MonoBehaviour {
 		{
 			CharacterMove.spawn = transform.position;
 			CharacterMove.reachCheckpoint = 1;
-			Destroy(gameObject);
 		}
 	}
 

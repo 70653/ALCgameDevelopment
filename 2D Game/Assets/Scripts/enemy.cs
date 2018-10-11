@@ -8,6 +8,8 @@ public class enemy : MonoBehaviour {
 	public float moveSpeed;
 	public bool moveRight;
 
+	public Rigidbody2D bulletShow;
+
 	// wall check
 	public Transform wallCheck;
 	public float wallCheckRadius;
@@ -19,6 +21,7 @@ public class enemy : MonoBehaviour {
 	public Transform edgeCheck;
 	public Vector3 enemySpawn;
 	public static int respawn = 0;
+	public int enemyHealth = 10;
 	// Use this for initialization
 	void Start () 
 	{
@@ -27,7 +30,15 @@ public class enemy : MonoBehaviour {
 	
 	void OnTriggerEnter2D (Collider2D other)
 	{
-
+		if (other.name == "bullet" && fireBullet.didHit == true)
+		{
+			enemyHealth -= 5;
+			fireBullet.didHit = false;
+		}
+		if (other.name == "player")
+		{
+			CharacterMove.playerDie = 1;
+		}
 	}
 
 	// Update is called once per frame
@@ -55,6 +66,12 @@ public class enemy : MonoBehaviour {
 			respawn = 0;
 			transform.position = enemySpawn;
 			moveRight = true;
+		}
+
+		// if health is 0 die
+		if (enemyHealth <= 0)
+		{
+			Destroy(gameObject);
 		}
 	}
 
