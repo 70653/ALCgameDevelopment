@@ -15,7 +15,8 @@ public float respawnDelay;
 // 0 = left, 1 = right
 public static int direction;
 
-public GameObject playerCharacter;
+public Rigidbody2D playerCharacter;
+public GameObject bullet;
 
 //player grounded variables
 public Transform groundCheck;
@@ -36,6 +37,10 @@ public static Vector3 currentPosition;
 		if (other.name == "DeathBox")
 		{
 			Reset();
+		}
+		else if (other.name == "sword")
+		{
+			swordScript.gotSword = true;
 		}
 	}
 
