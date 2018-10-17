@@ -6,6 +6,7 @@ public class swordScript : MonoBehaviour {
 
 	public static bool gotSword = false;
 	public Rigidbody2D playerBody;
+	public GameObject playerObject;
 	public int extraX = 10;
 
 	// Use this for initialization
@@ -19,7 +20,15 @@ public class swordScript : MonoBehaviour {
 	{
 		if (gotSword == true)
 		{
-			transform.position = CharacterMove.currentPosition;
+			transform.position = playerObject.transform.position;
+			if (CharacterMove.direction > 0)
+			{
+				
+			}
+			else
+			{
+
+			}
 		}
 	}
 }

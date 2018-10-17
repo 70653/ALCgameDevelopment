@@ -16,7 +16,7 @@ public class levelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		pc = FindObjectOfType<Rigidbody2D>();
+		//pc = FindObjectOfType<Rigidbody2D>();
 	}
 	/* 
 	public void respawnPlayer()

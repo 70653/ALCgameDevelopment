@@ -17,6 +17,7 @@ public static int direction;
 
 public Rigidbody2D playerCharacter;
 public GameObject bullet;
+public GameObject swordObject;
 
 //player grounded variables
 public Transform groundCheck;
@@ -31,6 +32,8 @@ public static float moveVelocity;
 
 public static Vector3 spawn;
 public static Vector3 currentPosition;
+
+public static int leftRight; // 0 = left, 1 = right
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
@@ -84,6 +87,7 @@ public static Vector3 currentPosition;
 		{
 			moveVelocity = moveSpeed;
 			direction = 1;
+			leftRight = 1;
 		}
 
 		//move left
@@ -91,6 +95,7 @@ public static Vector3 currentPosition;
 		{
 			moveVelocity = moveSpeed * -1;
 			direction = 0;
+			leftRight = 0;
 		}
 
 		if (playerDie == 1)
