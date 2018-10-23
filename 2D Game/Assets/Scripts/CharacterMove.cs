@@ -35,6 +35,9 @@ public static Vector3 currentPosition;
 
 public static int leftRight; // 0 = left, 1 = right
 
+public Transform firePoint;
+public GameObject bulletClone;
+
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		if (other.name == "DeathBox")
@@ -104,11 +107,33 @@ public static int leftRight; // 0 = left, 1 = right
 			Reset();
 		}
 
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			if (CharacterMove.direction > 0)
+			{
+				fireBullet.bulletVelocity = 7;
+			}
+			else
+			{
+				fireBullet.bulletVelocity = -7;
+			}
+			bulletClone = (GameObject) Instantiate(bullet, transform.position, transform.rotation);
+		}
+
+		if (fireBullet.didHit == true)
+		{
+			DestroyImmediate(bulletClone);
+		}
+
 		// moves the character every frame while moving
 		GetComponent<Rigidbody2D>().velocity = new Vector2(moveVelocity, GetComponent<Rigidbody2D>().velocity.y);
 
 		currentPosition = transform.position;
+
 	}// end update
+
+
+
 	public void Jump()
 	{
 		GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);

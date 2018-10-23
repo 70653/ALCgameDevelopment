@@ -8,16 +8,16 @@ public class fireBullet : MonoBehaviour {
 	public GameObject player;
 	public Rigidbody2D playerCharacter;
 	public Rigidbody2D bulletSprite;
-	public bool canShoot = true;
+	public static bool canShoot = true;
 	public float speed;
-	public float bulletVelocity;
+	public static float bulletVelocity;
 	public int bulletTimer = 0;
 	public static bool didHit = false;
 
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.name != "player")
+		if (other.name != "player" && other.name != "sword")
 		{
 			didHit = true;
 			canShoot = true;
@@ -29,12 +29,14 @@ public class fireBullet : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		bulletTimer++;
+		/*
 		// if the bullet is in the air count how long it's in the air
 		if (canShoot == false)
 		{
@@ -48,6 +50,7 @@ public class fireBullet : MonoBehaviour {
 			didHit = false;
 			bulletTimer = 0;
 
+
 			transform.position = CharacterMove.currentPosition;
 
 			bulletSprite.GetComponent<Renderer>().enabled = true;
@@ -60,16 +63,19 @@ public class fireBullet : MonoBehaviour {
 			{
 				bulletVelocity = speed * -1;
 			}
+
+
 		}
 
 		// if the bullet has been flying for a certain amount of time
 		if (bulletTimer >= 90)
 		{
-			bulletTimer = 0;
-			canShoot = true;
 			bulletSprite.GetComponent<Renderer>().enabled = false;// hides the bullet
+			canShoot = true;
 		}
-
+		*/
 		GetComponent<Rigidbody2D>().velocity = new Vector2(bulletVelocity, 0);
+
+
 	}// end update
 }

@@ -1745,7 +1745,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 12.159584, y: -2.8064673}
+  m_Offset: {x: 23.718262, y: -2.8064673}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1756,7 +1756,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 48.808647, y: 2.3593717}
+  m_Size: {x: 71.92604, y: 2.3593717}
   m_EdgeRadius: 0
 --- !u!4 &655530804
 Transform:
@@ -2105,7 +2105,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.7938988, y: -0.004158139}
+  m_Offset: {x: 5.877851, y: -0.004158139}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2116,7 +2116,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.736898, y: 1.0977061}
+  m_Size: {x: 5.676633, y: 1.0977061}
   m_EdgeRadius: 0
 --- !u!1 &724604286
 GameObject:
@@ -3864,7 +3864,6 @@ MonoBehaviour:
   player: {fileID: 2118099533}
   playerCharacter: {fileID: 2118099536}
   bulletSprite: {fileID: 1962685150}
-  canShoot: 1
   speed: 7
   bulletVelocity: 0
   bulletTimer: 0
@@ -3994,7 +3993,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2118099533}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46.58, y: -5.34, z: -0.24992487}
+  m_LocalPosition: {x: 4.44, y: -1.39, z: -0.24992487}
   m_LocalScale: {x: 0.12339, y: 0.12432149, z: 1}
   m_Children:
   - {fileID: 519420032}
@@ -4063,11 +4062,13 @@ MonoBehaviour:
   respawnDelay: 0
   playerCharacter: {fileID: 2118099536}
   bullet: {fileID: 1962685146}
+  swordObject: {fileID: 0}
   groundCheck: {fileID: 758901736}
   groundCheckRadius: 0.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  firePoint: {fileID: 2118099535}
 --- !u!114 &2118099539
 MonoBehaviour:
   m_ObjectHideFlags: 0
