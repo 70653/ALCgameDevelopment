@@ -38,7 +38,7 @@ public static int leftRight; // 0 = left, 1 = right
 public Transform firePoint;
 public GameObject bulletClone;
 
-	void OnTriggerEnter2D (Collider2D other)
+	void OnTriggerEnter2D (Collider2D other) // if the player hits something
 	{
 		if (other.name == "DeathBox")
 		{
@@ -69,7 +69,7 @@ public GameObject bulletClone;
 			Jump();
 		}
 
-		// 
+		// is the player on the ground
 		if (grounded == true)
 		{
 			doubleJump = true;
@@ -89,7 +89,7 @@ public GameObject bulletClone;
 		if (Input.GetKey(KeyCode.RightArrow))
 		{
 			moveVelocity = moveSpeed;
-			direction = 1;
+			direction = 1;// direction = 1 is going to the right
 			leftRight = 1;
 		}
 
@@ -101,28 +101,10 @@ public GameObject bulletClone;
 			leftRight = 0;
 		}
 
-		if (playerDie == 1)
+		if (playerDie == 1) // did the player die
 		{
 			playerDie = 0;
 			Reset();
-		}
-
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			if (CharacterMove.direction > 0)
-			{
-				fireBullet.bulletVelocity = 7;
-			}
-			else
-			{
-				fireBullet.bulletVelocity = -7;
-			}
-			bulletClone = (GameObject) Instantiate(bullet, transform.position, transform.rotation);
-		}
-
-		if (fireBullet.didHit == true)
-		{
-			DestroyImmediate(bulletClone);
 		}
 
 		// moves the character every frame while moving
@@ -134,14 +116,14 @@ public GameObject bulletClone;
 
 
 
-	public void Jump()
+	public void Jump() // jumping function
 	{
 		GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
 	}
 
-	public void Reset()
+	public void Reset() // reset or death function
 	{
-		if (scoreManager.score <= 0 && reachCheckpoint == 0)
+		if (scoreManager.score <= 0 && reachCheckpoint == 0) // did the player reach the checkpoint
 		{
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
