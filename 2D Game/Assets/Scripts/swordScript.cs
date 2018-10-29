@@ -5,9 +5,10 @@ using UnityEngine;
 public class swordScript : MonoBehaviour {
 
 	public static bool gotSword = false;
+	public bool swordAttack = false;
 	public Rigidbody2D playerBody;
 	public GameObject playerObject;
-	public int extraX = 10;
+	public int extraX = 10, timer = 0;
 
 	public float speed = 0f; // multiple for how fast?
 
@@ -15,14 +16,6 @@ public class swordScript : MonoBehaviour {
 	void Start () 
 	{
 		gotSword = false;
-
-		transform.Rotate(new Vector3(0,0,0)); 
-
-		Debug.Log(transform.eulerAngles.z);
-
-		transform.Rotate(new Vector3(0,0,180)); 
-
-		Debug.Log(transform.eulerAngles.z);
 	}
 	
 	// Update is called once per frame
@@ -32,32 +25,36 @@ public class swordScript : MonoBehaviour {
 		{
 			transform.position = playerObject.transform.position; // sword stays by the player
 
-			if (Input.GetKeyDown (KeyCode.RightArrow))
+			if (CharacterMove.direction != 0 && transform.eulerAngles.z > 1)// the player and sword are facing right
 			{
-				if (CharacterMove.direction != 1)// if player was going to the left then turns right
-				{
-					transform.Rotate(new Vector3(0, 0,180)); 
-				}
+				transform.Rotate(new Vector3(0, 0,180));
+				//Debug.Log(transform.eulerAngles.z);
 			}
-			else if (Input.GetKeyDown (KeyCode.LeftArrow))
+			else if (CharacterMove.direction != 1 && transform.eulerAngles.z < 179) // the player and sword are facing left
 			{
-				if (CharacterMove.direction != 0) // if player was going to the right then turns left
+				transform.Rotate(new Vector3(0,0,180));
+				//Debug.Log(transform.eulerAngles.z);
+			}
+
+			if(Input.GetKeyDown(KeyCode.M) && swordAttack == false)
+			{
+				transform.Rotate(new Vector3(0,0,-45));
+				swordAttack = true;
+			}
+
+			if (timer < 0 && swordAttack == true)
+			{
+				transform.Rotate(new Vector3(0, 0, 10));
+				timer++;
+				if (timer > 90)
 				{
-					transform.Rotate(new Vector3(0,0,180)); 
+					swordAttack = false;
+					timer = 0;
+					transform.Rotate(new Vector3(0, 0, -45));
 				}
 			}
 
-			if (CharacterMove.direction > 0) // if player is going to the right
-			{
-				if (transform.eulerAngles.z != 0)
-				{
 
-				}
-			}
-			else // if going to the left
-			{
-
-			}
 		}
 
 		transform.Rotate(Vector3.back, speed);// rotates the sword on the z axis, speed controls the speed of rotation
