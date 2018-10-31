@@ -10,7 +10,7 @@ public static CharacterMove instance;
 // player movement variables
 public float moveSpeed;
 public float jumpHeight = 6;
-public float respawnDelay;
+public float respawnDelay = 1f;
 
 // 0 = left, 1 = right
 public static int direction;
@@ -42,7 +42,8 @@ public GameObject bulletClone;
 	{
 		if (other.name == "DeathBox")
 		{
-			Reset();
+			//Reset();
+			respawnPlayer();
 		}
 		else if (other.name == "sword")
 		{
@@ -50,10 +51,35 @@ public GameObject bulletClone;
 		}
 	}
 
+	public void respawnPlayer()
+	{
+		StartCoroutine ("respawnPlayerCO");
+	}
+
+	public IEnumerator respawnPlayerCO()
+	{
+		//cameraScript.isFollowing = false;
+		playerCharacter.GetComponent<Renderer>().enabled = false;
+		yield return new WaitForSeconds (respawnDelay);
+		if (scoreManager.score <= 0 && reachCheckpoint == 0) // did the player reach the checkpoint
+		{
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		}
+		else
+		{
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+			transform.position = spawn;
+			enemy.respawn = 1;
+		}
+		scoreManager.addPoints(-50);
+		playerCharacter.GetComponent<Renderer>().enabled = true;
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
 		spawn = transform.position;
+		playerCharacter.GetComponent<Renderer>().enabled = true;
 	}
 	
 	void FixedUpdate()
@@ -104,7 +130,8 @@ public GameObject bulletClone;
 		if (playerDie == 1) // did the player die
 		{
 			playerDie = 0;
-			Reset();
+			//Reset();
+			respawnPlayer();
 		}
 
 		// moves the character every frame while moving
@@ -123,6 +150,8 @@ public GameObject bulletClone;
 
 	public void Reset() // reset or death function
 	{
+		//cameraScript.isFollowing = false;
+		playerCharacter.GetComponent<Renderer>().enabled = true;
 		if (scoreManager.score <= 0 && reachCheckpoint == 0) // did the player reach the checkpoint
 		{
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
