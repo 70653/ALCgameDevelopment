@@ -15,9 +15,9 @@ public float respawnDelay = 1f;
 // 0 = left, 1 = right
 public static int direction;
 
-public Rigidbody2D playerCharacter;
-public GameObject bullet;
-public GameObject swordObject;
+public Rigidbody2D playerCharacter;// the player
+public GameObject bullet;// the bullet
+public GameObject swordObject;// the sword
 
 //player grounded variables
 public Transform groundCheck;
@@ -37,6 +37,8 @@ public static int leftRight; // 0 = left, 1 = right
 
 public Transform firePoint;
 public GameObject bulletClone;
+
+public Rigidbody2D skull;// skull body
 
 	void OnTriggerEnter2D (Collider2D other) // if the player hits something
 	{
@@ -58,9 +60,11 @@ public GameObject bulletClone;
 
 	public IEnumerator respawnPlayerCO()
 	{
-		//cameraScript.isFollowing = false;
+		cameraScript.isFollowing = false;
 		playerCharacter.GetComponent<Renderer>().enabled = false;
+		skullScript.playerDied = true;
 		yield return new WaitForSeconds (respawnDelay);
+		skullScript.playerDied = false;
 		if (scoreManager.score <= 0 && reachCheckpoint == 0) // did the player reach the checkpoint
 		{
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
@@ -73,6 +77,7 @@ public GameObject bulletClone;
 		}
 		scoreManager.addPoints(-50);
 		playerCharacter.GetComponent<Renderer>().enabled = true;
+		cameraScript.isFollowing = true;
 	}
 
 	// Use this for initialization
