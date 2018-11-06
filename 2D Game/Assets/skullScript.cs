@@ -21,7 +21,7 @@ public class skullScript : MonoBehaviour {
 		if (playerDied == true && skullShown == false)
 		{
 			skull.GetComponent<Renderer>().enabled = true;
-			transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 1, -1);
+			transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -1);
 			skullShown = true;
 		}
 		if (playerDied == false)

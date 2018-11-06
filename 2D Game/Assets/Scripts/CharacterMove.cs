@@ -40,6 +40,8 @@ public GameObject bulletClone;
 
 public Rigidbody2D skull;// skull body
 
+// end variables
+
 	void OnTriggerEnter2D (Collider2D other) // if the player hits something
 	{
 		if (other.name == "DeathBox")
@@ -51,12 +53,13 @@ public Rigidbody2D skull;// skull body
 		{
 			swordScript.gotSword = true;
 		}
-	}
+
+	}// onTrigger2D ends
 
 	public void respawnPlayer()
 	{
 		StartCoroutine ("respawnPlayerCO");
-	}
+	}// respawn player ends
 
 	public IEnumerator respawnPlayerCO()
 	{
@@ -78,19 +81,19 @@ public Rigidbody2D skull;// skull body
 		scoreManager.addPoints(-50);
 		playerCharacter.GetComponent<Renderer>().enabled = true;
 		cameraScript.isFollowing = true;
-	}
+	}// respawn player co ends
 
 	// Use this for initialization
 	void Start () 
 	{
 		spawn = transform.position;
 		playerCharacter.GetComponent<Renderer>().enabled = true;
-	}
+	}// start ends
 	
 	void FixedUpdate()
 	{
 		grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-	}
+	}// fixed update ends
 
 	// Update is called once per frame
 	void Update () {
@@ -137,6 +140,15 @@ public Rigidbody2D skull;// skull body
 			playerDie = 0;
 			//Reset();
 			respawnPlayer();
+		}
+
+		if (jumpPadScript.onJumpPad == true)
+		{
+			jumpHeight = 18;
+		}
+		else
+		{
+			jumpHeight = 6;
 		}
 
 		// moves the character every frame while moving
