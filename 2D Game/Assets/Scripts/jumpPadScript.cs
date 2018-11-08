@@ -14,22 +14,17 @@ public class jumpPadScript : MonoBehaviour {
 		if (other.name == "player")
 		{
 			onJumpPad = true;
-			Debug.Log("Player Enters Jump Pad");
-			superJump();
 		}
 
 	}// onTrigger2D ends
 
-	public void superJump()
-	{
-		StartCoroutine ("superJumpCO");
-	}// respawn player ends
-
-	public IEnumerator superJumpCO()
-	{
-		yield return new WaitForSeconds (jumpDelay);
-		onJumpPad = false;
-	}// respawn player co ends
+	void OnTriggerExit2D(Collider2D other) // if the player leaves the jump pad
+    {
+        if (other.name == "player")
+		{
+			onJumpPad = false;
+		}
+    }
 
 	// Use this for initialization
 	void Start () {

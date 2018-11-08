@@ -9,6 +9,8 @@ public class swordScript : MonoBehaviour {
 	public Rigidbody2D playerBody;
 	public GameObject playerObject;
 	public int extraX = 10, timer = 0;
+	public float currentAngle;
+	public float originalAngle;
 
 	public float speed = 0f; // multiple for how fast?
 
@@ -16,6 +18,7 @@ public class swordScript : MonoBehaviour {
 	void Start () 
 	{
 		gotSword = false;
+		originalAngle = transform.eulerAngles.z;
 	}
 	
 	// Update is called once per frame
@@ -25,12 +28,12 @@ public class swordScript : MonoBehaviour {
 		{
 			transform.position = playerObject.transform.position; // sword stays by the player
 
-			if (CharacterMove.direction != 0 && transform.eulerAngles.z > 1)// the player and sword are facing right
+			if (CharacterMove.direction != 0 && transform.eulerAngles.z > 1 && swordAttack == false)// the player and sword are facing right
 			{
 				transform.Rotate(new Vector3(0, 0,180));
 				//Debug.Log(transform.eulerAngles.z);
 			}
-			else if (CharacterMove.direction != 1 && transform.eulerAngles.z < 179) // the player and sword are facing left
+			else if (CharacterMove.direction != 1 && transform.eulerAngles.z < 179 && swordAttack == false) // the player and sword are facing left
 			{
 				transform.Rotate(new Vector3(0,0,180));
 				//Debug.Log(transform.eulerAngles.z);
@@ -38,19 +41,23 @@ public class swordScript : MonoBehaviour {
 
 			if(Input.GetKeyDown(KeyCode.M) && swordAttack == false)
 			{
+				currentAngle = transform.eulerAngles.z + 45;
+				Debug.Log(transform.eulerAngles.z);
+				Debug.Log(currentAngle);
 				transform.Rotate(new Vector3(0,0,-45));
+				Debug.Log(transform.eulerAngles.z);
 				swordAttack = true;
 			}
 
-			if (timer < 0 && swordAttack == true)
+			if (transform.eulerAngles.z != currentAngle && swordAttack == true)
 			{
-				transform.Rotate(new Vector3(0, 0, 10));
-				timer++;
-				if (timer > 90)
+				transform.Rotate(new Vector3(0, 0, 1));
+				//Debug.Log(transform.eulerAngles.z);
+				if (transform.eulerAngles.z == currentAngle)
 				{
 					swordAttack = false;
-					timer = 0;
-					transform.Rotate(new Vector3(0, 0, -45));
+					//transform.Rotate(new Vector3(0, 0, -45));
+					//transform.eulerAngles.z = originalAngle;
 				}
 			}
 
