@@ -8,6 +8,7 @@ public class swordScript : MonoBehaviour {
 	public bool swordAttack = false;
 	public Rigidbody2D playerBody;
 	public GameObject playerObject;
+	public Rigidbody2D swordBody;
 	public int extraX = 10, timer = 0;
 	public float currentAngle;
 	public float originalAngle;
@@ -28,37 +29,36 @@ public class swordScript : MonoBehaviour {
 		{
 			transform.position = playerObject.transform.position; // sword stays by the player
 
-			if (CharacterMove.direction != 0 && transform.eulerAngles.z > 1 && swordAttack == false)// the player and sword are facing right
+			if (CharacterMove.direction == 0 && swordBody.rotation == 0 && swordAttack == false)// if the player is facing left away from sword
 			{
-				transform.Rotate(new Vector3(0, 0,180));
-				//Debug.Log(transform.eulerAngles.z);
+				swordBody.rotation = 180;
 			}
-			else if (CharacterMove.direction != 1 && transform.eulerAngles.z < 179 && swordAttack == false) // the player and sword are facing left
+			else if (CharacterMove.direction == 1 && swordBody.rotation == 180 && swordAttack == false) // if the player is facing right away from sword
 			{
-				transform.Rotate(new Vector3(0,0,180));
-				//Debug.Log(transform.eulerAngles.z);
+				swordBody.rotation = 0;
 			}
 
 			if(Input.GetKeyDown(KeyCode.M) && swordAttack == false)
 			{
-				currentAngle = transform.eulerAngles.z + 45;
 				Debug.Log(transform.eulerAngles.z);
-				Debug.Log(currentAngle);
-				transform.Rotate(new Vector3(0,0,-45));
+
+				if (CharacterMove.direction == 1)// if the player is facing to the right
+				{
+					swordBody.rotation += 45;
+				}
+				else if (CharacterMove.direction == 0)// if the player is facing to the left
+				{
+					swordBody.rotation -= 45;
+				}
+
 				Debug.Log(transform.eulerAngles.z);
 				swordAttack = true;
+				//swordBody.rotation += 10;
 			}
 
-			if (transform.eulerAngles.z != currentAngle && swordAttack == true)
+			if (swordAttack == true)
 			{
-				transform.Rotate(new Vector3(0, 0, 1));
-				//Debug.Log(transform.eulerAngles.z);
-				if (transform.eulerAngles.z == currentAngle)
-				{
-					swordAttack = false;
-					//transform.Rotate(new Vector3(0, 0, -45));
-					//transform.eulerAngles.z = originalAngle;
-				}
+
 			}
 
 

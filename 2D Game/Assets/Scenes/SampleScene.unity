@@ -964,7 +964,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 356723142}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalPosition: {x: 0, y: 0, z: 110}
   m_LocalScale: {x: 0.013404826, y: 0.013404826, z: 0.013404826}
   m_Children: []
   m_Father: {fileID: 56859924}
@@ -1975,7 +1975,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 692856771}
   m_LocalRotation: {x: -0, y: -0, z: 0.0003238833, w: 0.99999994}
-  m_LocalPosition: {x: 48.23, y: -5.53, z: 100}
+  m_LocalPosition: {x: 48.05, y: -5.37, z: 100}
   m_LocalScale: {x: 0.12007702, y: 0.12007702, z: 0.12007702}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1995,9 +1995,11 @@ MonoBehaviour:
   swordAttack: 0
   playerBody: {fileID: 2118099536}
   playerObject: {fileID: 2118099533}
+  swordBody: {fileID: 0}
   extraX: 10
   timer: 0
   currentAngle: 0
+  originalAngle: 0
   speed: 0
 --- !u!50 &692856775
 Rigidbody2D:
@@ -4233,7 +4235,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2118099533}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 47.2, y: -5.33, z: 100}
+  m_LocalPosition: {x: 47.39, y: -5.33, z: 100}
   m_LocalScale: {x: 0.12339, y: 0.12432149, z: 1}
   m_Children:
   - {fileID: 758901736}
