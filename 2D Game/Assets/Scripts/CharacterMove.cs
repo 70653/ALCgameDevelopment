@@ -36,9 +36,10 @@ public static Vector3 currentPosition;
 public static int leftRight; // 0 = left, 1 = right
 
 public Transform firePoint;
-public GameObject bulletClone;
 
 public Rigidbody2D skull;// skull body
+
+public static int bulletNumber = 0;
 
 // end variables
 
@@ -88,6 +89,7 @@ public Rigidbody2D skull;// skull body
 	{
 		spawn = transform.position;
 		playerCharacter.GetComponent<Renderer>().enabled = true;
+		bulletNumber = 0;
 	}// start ends
 	
 	void FixedUpdate()
@@ -97,38 +99,33 @@ public Rigidbody2D skull;// skull body
 
 	// Update is called once per frame
 	void Update () {
-		//player jump
-		if (Input.GetKeyDown (KeyCode.UpArrow) && grounded == true)
+		
+		if (Input.GetKeyDown (KeyCode.UpArrow) && grounded == true)// player jump
 		{
 			Jump();
 		}
 
-		// is the player on the ground
-		if (grounded == true)
+		if (grounded == true)// is the player on the ground
 		{
 			doubleJump = true;
 		}
 
-		// double jump
-		if (Input.GetKeyDown (KeyCode.UpArrow) && doubleJump == true && grounded == false)
+		if (Input.GetKeyDown (KeyCode.UpArrow) && doubleJump == true && grounded == false)// double jump
 		{
 			Jump();
 			doubleJump = false;
 		}
+		
+		moveVelocity = 0f;// non slide player
 
-		// non slide player
-		moveVelocity = 0f;
-
-		//move right
-		if (Input.GetKey(KeyCode.RightArrow))
+		if (Input.GetKey(KeyCode.RightArrow))// move right
 		{
 			moveVelocity = moveSpeed;
 			direction = 1;// direction = 1 is going to the right
 			leftRight = 1;
 		}
 
-		//move left
-		if (Input.GetKey(KeyCode.LeftArrow))
+		if (Input.GetKey(KeyCode.LeftArrow))// move left
 		{
 			moveVelocity = moveSpeed * -1;
 			direction = 0;
@@ -142,13 +139,20 @@ public Rigidbody2D skull;// skull body
 			respawnPlayer();
 		}
 
-		if (jumpPadScript.onJumpPad == true)
+		if (jumpPadScript.onJumpPad == true)// if player is on the jump pad
 		{
 			jumpHeight = 18;
 		}
 		else
 		{
 			jumpHeight = 6;
+		}
+
+		if (Input.GetKeyDown(KeyCode.Space) && bulletNumber < 3) // if the player is able to shoot
+		{
+			bulletNumber++;
+			bullet = Resources.Load("Prefabs/bullet") as GameObject;
+			Instantiate(bullet, transform.position, transform.rotation);
 		}
 
 		// moves the character every frame while moving
