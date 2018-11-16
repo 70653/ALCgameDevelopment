@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class swordScript : MonoBehaviour {
 
-	public static bool gotSword = false;
-	public bool swordAttack = false;
+	public static bool gotSword = false; // if the player has the sword
+	public bool swordAttack = false; // if attacking
+	public static bool firstGetSword = false; // the first time the player gets the sword
 	public Rigidbody2D playerBody;
 	public GameObject playerObject;
 	public Rigidbody2D swordBody;
@@ -14,6 +15,15 @@ public class swordScript : MonoBehaviour {
 	public float spinDelay;
 
 	public float speed = 0f; // multiple for how fast?
+
+
+	void OnTriggerEnter2D (Collider2D other) // if the player hits something
+	{
+		if (other.tag == "enemy" && swordAttack == true)
+		{
+			Destroy (other.gameObject);
+		}
+	}// onTrigger2D ends
 
 	// Use this for initialization
 	void Start () 
@@ -25,8 +35,7 @@ public class swordScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-
-		if (gotSword == true)
+		if (gotSword == true && firstGetSword == true)
 		{
 			transform.position = playerObject.transform.position; // sword stays by the player
 
@@ -41,6 +50,7 @@ public class swordScript : MonoBehaviour {
 
 			if(Input.GetKeyDown(KeyCode.M) && swordAttack == false)
 			{
+				swordBody.GetComponent<Renderer>().enabled = true;
 				swordAttack = true;
 
 				if (CharacterMove.direction == 1)// if the player is facing to the right
@@ -53,6 +63,11 @@ public class swordScript : MonoBehaviour {
 				}
 				swingSword();
 			}// end if
+
+			if (swordAttack == false)
+			{
+				swordBody.GetComponent<Renderer>().enabled = false;
+			}
 
 		}// end if
 

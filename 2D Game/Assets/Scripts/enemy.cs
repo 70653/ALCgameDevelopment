@@ -26,14 +26,16 @@ public class enemy : MonoBehaviour {
 	void Start () 
 	{
 		enemySpawn = transform.position;
+		enemyHealth = 20;
 	}
 	
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.name == "bullet" && fireBullet.didHit == true)
+		if (other.name == "bullet(Clone)")
 		{
-			enemyHealth -= 5;
-			fireBullet.didHit = false;
+			Destroy(other.gameObject);
+			enemyHealth -=5;
+			Debug.Log(enemyHealth);
 		}
 		if (other.name == "player")
 		{

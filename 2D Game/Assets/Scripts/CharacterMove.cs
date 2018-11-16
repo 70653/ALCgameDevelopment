@@ -90,6 +90,7 @@ public static int bulletNumber = 0;
 		spawn = transform.position;
 		playerCharacter.GetComponent<Renderer>().enabled = true;
 		bulletNumber = 0;
+		bullet = Resources.Load("Prefab/bullet") as GameObject;
 	}// start ends
 	
 	void FixedUpdate()
@@ -135,7 +136,6 @@ public static int bulletNumber = 0;
 		if (playerDie == 1) // did the player die
 		{
 			playerDie = 0;
-			//Reset();
 			respawnPlayer();
 		}
 
@@ -150,9 +150,8 @@ public static int bulletNumber = 0;
 
 		if (Input.GetKeyDown(KeyCode.Space) && bulletNumber < 3) // if the player is able to shoot
 		{
-			bulletNumber++;
-			bullet = Resources.Load("Prefabs/bullet") as GameObject;
 			Instantiate(bullet, transform.position, transform.rotation);
+			bulletNumber++;
 		}
 
 		// moves the character every frame while moving
