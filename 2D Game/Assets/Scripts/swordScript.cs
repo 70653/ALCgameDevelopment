@@ -28,14 +28,14 @@ public class swordScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		gotSword = false;
+		//gotSword = false;
 		swordBody.rotation = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (gotSword == true && firstGetSword == true)
+		if (gotSword == true)
 		{
 			transform.position = playerObject.transform.position; // sword stays by the player
 

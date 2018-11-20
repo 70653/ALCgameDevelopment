@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class fireBullet : MonoBehaviour {
 
-	public GameObject bullet;
-	public GameObject player;
-	public Rigidbody2D playerCharacter;
-	public Rigidbody2D bulletSprite;
-	public static bool canShoot = true;
-	public float speed;
-	public static float bulletVelocity;
-	public int bulletTimer = 0;
+	//public GameObject bullet;
+	//public GameObject player;
+	//public Rigidbody2D playerCharacter;
+	//public Rigidbody2D bulletSprite;
+	//public static bool canShoot = true;
+	private float speed;
+	private float bulletVelocity;
+	private int bulletTimer = 0;
 
 
 	void OnTriggerEnter2D (Collider2D other)
@@ -26,6 +26,7 @@ public class fireBullet : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		speed = 10f;
 		bulletTimer = 0;
 		if (CharacterMove.direction > 0)// shoots the same direction the player is facing
 		{
@@ -43,7 +44,7 @@ public class fireBullet : MonoBehaviour {
 		bulletTimer++;
 
 		// if the bullet has been flying for a certain amount of time
-		if (bulletTimer >= 120)
+		if (bulletTimer >= 100)
 		{
 			Destroy(gameObject);
 			CharacterMove.bulletNumber--;

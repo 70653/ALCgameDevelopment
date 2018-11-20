@@ -18,6 +18,7 @@ public static int direction;
 public Rigidbody2D playerCharacter;// the player
 public GameObject bullet;// the bullet
 public GameObject swordObject;// the sword
+public GameObject particleRespawn;
 
 //player grounded variables
 public Transform groundCheck;
@@ -80,6 +81,7 @@ public static int bulletNumber = 0;
 			enemy.respawn = 1;
 		}
 		scoreManager.addPoints(-50);
+		Instantiate(particleRespawn, transform.position, transform.rotation);
 		playerCharacter.GetComponent<Renderer>().enabled = true;
 		cameraScript.isFollowing = true;
 	}// respawn player co ends
@@ -91,6 +93,8 @@ public static int bulletNumber = 0;
 		playerCharacter.GetComponent<Renderer>().enabled = true;
 		bulletNumber = 0;
 		bullet = Resources.Load("Prefab/bullet") as GameObject;
+		particleRespawn = Resources.Load("Prefab/particleRespawn") as GameObject;
+		Instantiate(particleRespawn, transform.position, transform.rotation);
 	}// start ends
 	
 	void FixedUpdate()
