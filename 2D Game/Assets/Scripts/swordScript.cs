@@ -12,7 +12,7 @@ public class swordScript : MonoBehaviour {
 	public Rigidbody2D swordBody;
 	public int extraX = 10, timer = 0;
 	public float currentAngle;
-	public float spinDelay;
+	public float spinDelay = 0.02f;
 
 	public float speed = 0f; // multiple for how fast?
 

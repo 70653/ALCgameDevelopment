@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class cameraScript : MonoBehaviour {
 
-	public CharacterMove player;
+	public Rigidbody2D player;
+
+	public Rigidbody2D newPlayer;
 
 	public static bool isFollowing = true;
 
@@ -12,12 +14,9 @@ public class cameraScript : MonoBehaviour {
 	public float xOffset = 1;
 	public float yOffset = 1;
 
-	public Rigidbody2D playerBody;
-
 	// Use this for initialization
-	void Start () {
-		//player = FindObjectOfType<CharacterMove>();
-
+	void Start () 
+	{
 		isFollowing = true;
 	}
 	
@@ -25,8 +24,14 @@ public class cameraScript : MonoBehaviour {
 	void Update () {
 		if (isFollowing == true)
 		{
-			//transform.position = playerBody.transform.position;
-			transform.position = new Vector3(player.transform.position.x + xOffset, player.transform.position.y + yOffset, -10);
+			if (mainMenuScript.choice == "block")
+			{
+				transform.position = new Vector3(player.transform.position.x + xOffset, player.transform.position.y + yOffset, -10);
+			}
+			else if (mainMenuScript.choice == "new")
+			{
+				transform.position = new Vector3(newPlayer.transform.position.x + xOffset, newPlayer.transform.position.y + yOffset, -10);
+			}
 		}
 		
 	}

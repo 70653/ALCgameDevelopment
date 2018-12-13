@@ -8,7 +8,7 @@ public class CharacterMove : MonoBehaviour {
 public static CharacterMove instance;
 
 // player movement variables
-public float moveSpeed;
+public float moveSpeed = 5;
 public float jumpHeight = 6;
 public float respawnDelay = 1f;
 
@@ -41,6 +41,12 @@ public Transform firePoint;
 public Rigidbody2D skull;// skull body
 
 public static int bulletNumber = 0;
+
+public Animator animator;
+
+public GameObject blockPlayer;
+
+public Rigidbody2D newPlayerBody;
 
 // end variables
 
@@ -89,12 +95,35 @@ public static int bulletNumber = 0;
 	// Use this for initialization
 	void Start () 
 	{
+		if (mainMenuScript.choice == "block")
+		{
+			blockPlayer.GetComponent<CharacterMove>().enabled = true;
+
+			newPlayerBody.GetComponent<Renderer>().enabled = false;
+			playerCharacter.GetComponent<Renderer>().enabled = true;
+		}
+		else if (mainMenuScript.choice == "new")
+		{
+			blockPlayer.GetComponent<CharacterMove>().enabled = false;
+
+			newPlayerBody.GetComponent<Renderer>().enabled = true;
+			playerCharacter.GetComponent<Renderer>().enabled = false;
+		}
+		else if (mainMenuScript.choice == "none")
+		{
+			SceneManager.LoadScene(0);// level 0 is the main menu
+		}
+		
 		spawn = transform.position;
 		playerCharacter.GetComponent<Renderer>().enabled = true;
 		bulletNumber = 0;
 		bullet = Resources.Load("Prefab/bullet") as GameObject;
 		particleRespawn = Resources.Load("Prefab/particleRespawn") as GameObject;
 		Instantiate(particleRespawn, transform.position, transform.rotation);
+
+		animator.SetBool("isWalking", false);
+		animator.SetBool("isStanding", true);
+		
 	}// start ends
 	
 	void FixedUpdate()
@@ -122,6 +151,7 @@ public static int bulletNumber = 0;
 		}
 		
 		moveVelocity = 0f;// non slide player
+
 
 		if (Input.GetKey(KeyCode.RightArrow))// move right
 		{
