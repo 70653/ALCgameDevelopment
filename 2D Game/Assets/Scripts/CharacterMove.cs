@@ -7,46 +7,54 @@ public class CharacterMove : MonoBehaviour {
 
 public static CharacterMove instance;
 
-// player movement variables
+// float variables
+	// player movement variables
 public float moveSpeed = 5;
 public float jumpHeight = 6;
+public static float moveVelocity;
+
 public float respawnDelay = 1f;
+public float groundCheckRadius;
 
-// 0 = left, 1 = right
-public static int direction;
+// int variables
+public static int direction;// 0 = left, 1 = right
+public static int bulletNumber = 0;
+public static int reachCheckpoint;
+public static int playerDie = 0; // 0 = alive, 1 = dead
+public static int leftRight; // 0 = left, 1 = right
 
+// bool variables
+private bool grounded, doubleJump = true;// true = able to double jump
+
+
+// Rigidbody2D variables
 public Rigidbody2D playerCharacter;// the player
+public Rigidbody2D skull;// skull body
+public Rigidbody2D newPlayerBody;
+
+
+// GameObject variables
 public GameObject bullet;// the bullet
 public GameObject swordObject;// the sword
 public GameObject particleRespawn;
+public GameObject blockPlayer;
+public GameObject newPlayerObject;
+
 
 //player grounded variables
 public Transform groundCheck;
-public float groundCheckRadius;
 public LayerMask whatIsGround;
 
-public static int reachCheckpoint;
-public static int playerDie = 0; // 0 = alive, 1 = dead
-
-private bool grounded, doubleJump = true;// true = able to double jump
-public static float moveVelocity;
-
+// misc variables
 public static Vector3 spawn;
 public static Vector3 currentPosition;
 
-public static int leftRight; // 0 = left, 1 = right
-
 public Transform firePoint;
-
-public Rigidbody2D skull;// skull body
-
-public static int bulletNumber = 0;
 
 public Animator animator;
 
-public GameObject blockPlayer;
-
-public Rigidbody2D newPlayerBody;
+public Collider2D blockCollider;
+public Collider2D newPlayerCollider;
 
 // end variables
 
@@ -97,17 +105,21 @@ public Rigidbody2D newPlayerBody;
 	{
 		if (mainMenuScript.choice == "block")
 		{
-			blockPlayer.GetComponent<CharacterMove>().enabled = true;
-
-			newPlayerBody.GetComponent<Renderer>().enabled = false;
-			playerCharacter.GetComponent<Renderer>().enabled = true;
+			Destroy(newPlayerObject);
+			//newPlayerBody.GetComponent<Renderer>().enabled = false;// image
+			//playerCharacter.GetComponent<Renderer>().enabled = true;// image
+			//newPlayerCollider.enabled = false;// disable new player collider
+			//blockPlayer.GetComponent<CharacterMove>().enabled = true;//script
+			//newPlayerObject.GetComponent<newPlayerScript>().enabled = false;//script
 		}
 		else if (mainMenuScript.choice == "new")
 		{
-			blockPlayer.GetComponent<CharacterMove>().enabled = false;
-
-			newPlayerBody.GetComponent<Renderer>().enabled = true;
-			playerCharacter.GetComponent<Renderer>().enabled = false;
+			Destroy(blockPlayer);
+			//newPlayerBody.GetComponent<Renderer>().enabled = true;
+			//playerCharacter.GetComponent<Renderer>().enabled = false;
+			//blockCollider.enabled = false;// disable block collider
+			//blockPlayer.GetComponent<CharacterMove>().enabled = false;//script
+			//newPlayerObject.GetComponent<newPlayerScript>().enabled = true;//script
 		}
 		else if (mainMenuScript.choice == "none")
 		{
@@ -115,7 +127,6 @@ public Rigidbody2D newPlayerBody;
 		}
 		
 		spawn = transform.position;
-		playerCharacter.GetComponent<Renderer>().enabled = true;
 		bulletNumber = 0;
 		bullet = Resources.Load("Prefab/bullet") as GameObject;
 		particleRespawn = Resources.Load("Prefab/particleRespawn") as GameObject;

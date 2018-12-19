@@ -21,7 +21,7 @@ public class coinPickup : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		//Debug.Log(GetComponent<SpriteRenderer>().bounds.size.x);
 	}
 	
 	// Update is called once per frame

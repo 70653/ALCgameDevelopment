@@ -26,6 +26,7 @@ public class cameraScript : MonoBehaviour {
 		{
 			if (mainMenuScript.choice == "block")
 			{
+				xOffset = 1;
 				transform.position = new Vector3(player.transform.position.x + xOffset, player.transform.position.y + yOffset, -10);
 			}
 			else if (mainMenuScript.choice == "new")
